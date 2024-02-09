@@ -89,20 +89,29 @@ class select:
         response = completion.choices[0].message
         return str(response["content"])
     
-    def gpt35(self, prompt, token, temperature = 0.3):
+    def gpt35(self, prompt, token, temperature = 0.3, asJson = True):
         '''
         Uses gpt-3.5-turbo-1106 model using business API
-        Output is json object
+        If formatJson is true, output is json object
         '''
         openai.api_key = token
-        completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-1106",
-        response_format={ "type": "json_object" },
-        messages=[
-            {"role": "user", "content": prompt}
-        ],
-        temperature = temperature
-        )
+        if asJson:
+            completion = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo-1106",
+            response_format={ "type": "json_object" },
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature = temperature
+            )
+        elif not asJson:
+            completion = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo-1106",
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature = temperature
+            )
         response = completion.choices[0].message
         return str(response["content"])
     

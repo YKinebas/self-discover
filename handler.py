@@ -88,7 +88,8 @@ implementResponse = ai.request(
     prompts["primer"]+
     str(adjustedModules)+
     taskPrompt+
-    prompts["implementPrompt"]
+    prompts["implementPrompt"],
+    asJson=False
 )
 print("Implementation:\n"+
       str(implementResponse))
