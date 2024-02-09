@@ -1,11 +1,3 @@
-'''
-ERRORS TO CATCH:
-1. Incorrect API key
-2. Endpoint inactive
-3. Cost limit reached (OpenAI)
-4. Incorrect arguments set
-'''
-
 import openai
 import requests
 
