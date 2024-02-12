@@ -12,4 +12,5 @@ Structure:
     llm.models holds methods for interaction with openai and HF APIs. API keys need to be provided in each case.
     Stage1prompt.json contain the prompts for the Self-Discovery phase of the framework
     reasoningModules.json hold the 39 reasoning modules proposed in the source paper
-    handler.py is where the central logic sits, this is where you can play with the framework
+    stage1.py is where the self discovery logic happens
+    stage2.py is where the central logic sits, this is where you can play with the framework

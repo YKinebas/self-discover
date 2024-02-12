@@ -32,8 +32,8 @@ class select:
         else:
             raise ValueError(f"Unknown model: {model_name}")
 
-    def request(self, prompt, *args):
-        return self.model(prompt, self.token, *args)
+    def request(self, prompt, *args, **kwargs):
+        return self.model(prompt, self.token, *args, **kwargs)
     
     def mistral(self, prompt, token):
         '''
@@ -73,19 +73,29 @@ class select:
             print("Error interacting with HF endpoint:")
             print(str(e))
     
-    def gpt4(self, prompt, token, temperature = 0):
+    def gpt4(self, prompt, token, temperature = 0.3, asJson = True):
         '''
         Uses GPT-4 model using business API
         Output is string
         '''
         openai.api_key = token
-        completion = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=[
-            {"role": "user", "content": prompt}
-        ],
-        temperature = temperature
-        )
+        if asJson:
+            completion = openai.ChatCompletion.create(
+            model="gpt-4-0125-preview",
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature = temperature,
+            response_format={ "type": "json_object" }
+            )
+        elif not asJson:
+            completion = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature = temperature
+            )
         response = completion.choices[0].message
         return str(response["content"])
     
